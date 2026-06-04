@@ -298,3 +298,9 @@ Não precisa usar para:
 O objetivo não é criar burocracia.
 
 O objetivo é forçar a IA a pensar na ordem certa.
+
+## Exemplo de Fatiamento
+
+Veja um exemplo prático de uso do workflow de como quebrar uma POC de TODO CLI em tarefas pequenas:
+
+- `docs/ai-workflow/examples/todo-cli-slicing.md`
