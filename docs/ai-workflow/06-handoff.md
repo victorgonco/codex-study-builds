@@ -2,57 +2,49 @@
 
 ## Modo Atual
 
-Modo de Produto/Testes
+Modo de Arquitetura
 
 ## O Que Foi Feito
 
-- A especificação foi transformada em história de usuário, critérios de aceite, cenários BDD e plano de testes.
-- Foram definidos critérios verificáveis para criação e leitura básica de tarefas pelo CLI.
-- Foram definidos cenários para caminho feliz, erro de validação e persistência de múltiplas tarefas no mesmo arquivo Markdown.
-- Foram listados testes unitários, de integração, de contrato, negativos e dados de teste.
+- Foi definido o desenho técnico mínimo da solução em arquitetura hexagonal para a primeira entrega do app CLI de tarefas.
+- Foram explicitados os conceitos de domínio centrais, os casos de uso de criação e leitura e as portas de entrada e saída.
+- Foram definidos os adaptadores primários de CLI e o adaptador secundário de persistência em arquivo Markdown único.
+- Foram registradas estratégias de validação, persistência, tratamento de erros e os principais riscos da implementação.
 
 ## Decisões Tomadas
 
-- A primeira entrega deve cobrir apenas criação e leitura básica de tarefas.
-- Cada tarefa deve ter título e pode ter descrição simples.
-- As tarefas não terão relações entre si nesta etapa.
-- O armazenamento inicial deve manter todas as tarefas criadas no mesmo arquivo Markdown.
-- O arquivo Markdown de tarefas deve ficar em uma estrutura de pastas local.
-- Java 21 e arquitetura hexagonal permanecem como decisões já tomadas pela tarefa atual.
-- Banco de dados em memória ou externo permanece fora de escopo.
-- Os testes devem priorizar comportamento observável e regras de produto.
-- Testes unitários devem evitar dependência direta de terminal real ou sistema de arquivos real.
-- Testes de integração devem validar o uso de arquivos e pastas locais em ambiente temporário controlado.
+- A tarefa terá identificador gerado e estável, além de título e descrição.
+- A leitura de tarefa será feita por identificador, não por título.
+- Todas as tarefas continuarão em um único arquivo Markdown, tratado como fonte única de verdade nesta etapa.
+- O repositório de persistência será responsável por criar pasta e arquivo base quando necessário.
+- O arquivo Markdown será regravado integralmente a cada criação nesta primeira entrega, mantendo a solução simples.
+- A descrição pode ser vazia nesta etapa, desde que seja persistida e exibida de forma previsível.
 
 ## Arquivos Atualizados
 
-- `docs/ai-workflow/02-product-and-tests.md`
+- `docs/ai-workflow/03-architecture.md`
 - `docs/ai-workflow/06-handoff.md`
 
 ## Contexto Relevante Para o Próximo Modo
 
-- A próxima etapa deve definir arquitetura sem implementar código.
-- A arquitetura deve preservar a decisão de Java 21, CLI, arquitetura hexagonal e armazenamento inicial em um único arquivo Markdown.
-- Ainda é necessário definir o contrato exato dos comandos da CLI, o formato Markdown mínimo, o diretório padrão de armazenamento e a forma de identificar tarefas para leitura.
-- A definição de arquitetura deve viabilizar testes unitários sem terminal real ou sistema de arquivos real e testes de integração com diretório temporário.
+- A implementação deve preservar o isolamento entre domínio, casos de uso, adaptadores de CLI e persistência em arquivo.
+- O próximo modo deve materializar as portas e adaptadores sem expandir o escopo para edição, exclusão, subtarefas ou múltiplos arquivos de tarefa.
+- A persistência deve usar um formato Markdown simples e parseável que inclua identificador, título e descrição de cada tarefa.
+- A abordagem escolhida permite testes futuros sem depender diretamente de terminal real ou sistema de arquivos real no nível unitário.
 
 ## Não Alterar
 
-- Não implementar código neste momento.
-- Não criar arquivos de teste neste momento.
-- Não avançar automaticamente para o próximo modo.
-- Não expandir o escopo para edição, exclusão, subtarefas, relações entre tarefas, banco de dados, API HTTP ou interface gráfica.
-- Não alterar arquivos fora do workflow permitido para este modo.
+- Não expandir o escopo além de criação e leitura básica.
+- Não remover a decisão de arquitetura hexagonal.
+- Não trocar o armazenamento em arquivo Markdown único por banco de dados, memória ou múltiplos arquivos por tarefa.
+- Não avançar automaticamente para implementação sem solicitação explícita do usuário.
 
 ## Pendências
 
-- Definir o formato exato dos comandos da CLI.
-- Definir como uma tarefa será identificada para leitura.
-- Definir o diretório padrão de armazenamento.
-- Definir o formato Markdown mínimo para uma tarefa.
-- Definir se descrição vazia é aceita ou rejeitada.
-- Definir se haverá comando de listagem nesta primeira entrega.
+- Detalhar no próximo modo a estrutura concreta de pacotes e classes compatível com esta arquitetura.
+- Definir o formato exato dos comandos CLI na implementação, respeitando a leitura por identificador.
+- Definir o formato Markdown final de serialização sem quebrar as decisões registradas neste modo.
 
 ## Próxima Ação Recomendada
 
-Executar Modo de Arquitetura.
+Executar Modo de Implementação.
