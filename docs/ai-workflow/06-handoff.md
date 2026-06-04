@@ -2,71 +2,45 @@
 
 ## Modo Atual
 
-Modo de Implementação
+Modo de Verificação/Refatoração
 
 ## O Que Foi Feito
 
-- Foi criada a base inicial do projeto Java 21 com Maven e JUnit 5.
-- Foram escritos testes para criação de tarefa, leitura de tarefa, fluxo básico de CLI e persistência em arquivo Markdown único.
-- Foi implementado o domínio `Tarefa`, os casos de uso `CriarTarefa` e `LerTarefa`, as portas de entrada e saída e os adaptadores mínimos de CLI e persistência.
-- Foi implementado um repositório em arquivo Markdown único com criação automática de diretório e arquivo quando necessário.
-- A suíte de testes foi executada com sucesso ao final da implementação.
+- Foi realizada a verificação da implementação contra `01-spec.md`, `02-product-and-tests.md` e `03-architecture.md`.
+- Foi executada a suíte automatizada com `mvn "-Dmaven.repo.local=.m2" test`, com `12` testes passando.
+- Foi revisada a documentação do workflow e registrada a aderência da entrega ao escopo funcional desta etapa.
+- Foram documentados riscos remanescentes e lacunas de cobertura em `05-verification.md`.
 
 ## Decisões Tomadas
 
-- O build foi padronizado com Maven e dependência única de teste via JUnit 5.
-- A CLI inicial foi mantida sem biblioteca externa, usando argumentos no formato `criar --arquivo=... --titulo=... --descricao=...` e `ler --arquivo=... --id=...`.
-- A leitura continua orientada por identificador gerado.
-- O armazenamento permanece em um único arquivo Markdown regravado a cada criação.
-- A descrição vazia continua permitida e é normalizada para string vazia.
-- O repositório Maven local de execução foi direcionado para `.m2` dentro do workspace para permitir os testes neste ambiente.
+- A entrega foi considerada aprovada com riscos, sem necessidade de alterar o código neste modo.
+- Não foram aplicadas refatorações porque o fluxo principal está estável e coberto pelos testes existentes.
+- O tratamento de falhas de infraestrutura ficou registrado como pendência arquitetural para próximo ciclo, sem mudança de comportamento nesta etapa.
 
 ## Arquivos Atualizados
 
-- `pom.xml`
-- `src/main/java/br/com/cafeina/todo/domain/Tarefa.java`
-- `src/main/java/br/com/cafeina/todo/domain/exception/ValidacaoException.java`
-- `src/main/java/br/com/cafeina/todo/domain/exception/TarefaNaoEncontradaException.java`
-- `src/main/java/br/com/cafeina/todo/application/CriarTarefaCommand.java`
-- `src/main/java/br/com/cafeina/todo/application/LerTarefaCommand.java`
-- `src/main/java/br/com/cafeina/todo/application/CriarTarefaService.java`
-- `src/main/java/br/com/cafeina/todo/application/LerTarefaService.java`
-- `src/main/java/br/com/cafeina/todo/application/port/in/CriarTarefaUseCase.java`
-- `src/main/java/br/com/cafeina/todo/application/port/in/LerTarefaUseCase.java`
-- `src/main/java/br/com/cafeina/todo/application/port/out/GeradorDeIdentificador.java`
-- `src/main/java/br/com/cafeina/todo/application/port/out/RepositorioDeTarefas.java`
-- `src/main/java/br/com/cafeina/todo/application/port/out/SerializadorMarkdownDeTarefas.java`
-- `src/main/java/br/com/cafeina/todo/adapter/in/TodoCliApp.java`
-- `src/main/java/br/com/cafeina/todo/adapter/out/GeradorDeUuid.java`
-- `src/main/java/br/com/cafeina/todo/adapter/out/RepositorioMarkdownEmArquivo.java`
-- `src/main/java/br/com/cafeina/todo/adapter/out/SerializadorMarkdownSimples.java`
-- `src/test/java/br/com/cafeina/todo/application/CriarTarefaServiceTest.java`
-- `src/test/java/br/com/cafeina/todo/application/LerTarefaServiceTest.java`
-- `src/test/java/br/com/cafeina/todo/adapter/in/TodoCliAppTest.java`
-- `src/test/java/br/com/cafeina/todo/adapter/out/RepositorioMarkdownEmArquivoTest.java`
-- `docs/ai-workflow/04-implementation-plan.md`
+- `docs/ai-workflow/05-verification.md`
 - `docs/ai-workflow/06-handoff.md`
 
-## Contexto Relevante Para o Próximo Modo
+## Contexto Relevante Para o Próximo Ciclo
 
-- O comportamento coberto por testes já inclui criação, leitura, validação de título obrigatório e persistência de múltiplas tarefas no mesmo arquivo.
-- O formato Markdown implementado é simples e parseável, com blocos por tarefa contendo `id`, `titulo` e `descricao`.
-- A suíte validada no ambiente foi `mvn "-Dmaven.repo.local=.m2" test`.
-- O teste de persistência precisa permanecer com nome compatível com a suíte padrão, ou a configuração do Maven deverá ser ajustada em etapa futura.
+- O fluxo principal de criação e leitura via CLI está funcionando e testado.
+- A persistência continua centralizada em um único arquivo Markdown, conforme a restrição da tarefa.
+- A principal lacuna técnica está no tratamento amigável de erros de I/O pela CLI.
+- Também faltam testes para Markdown inválido e para falhas de permissão/escrita no armazenamento.
 
 ## Não Alterar
 
 - Não expandir o escopo além de criação e leitura básica.
-- Não remover a decisão de arquitetura hexagonal.
-- Não trocar o armazenamento em arquivo Markdown único por banco de dados, memória ou múltiplos arquivos por tarefa.
-- Não refatorar amplamente a CLI, o formato de persistência ou a estrutura de portas sem necessidade validada no próximo modo.
+- Não remover a arquitetura hexagonal adotada.
+- Não trocar o armazenamento em arquivo Markdown único por outro mecanismo.
+- Não alterar o contrato atual de criação e leitura sem abrir novo ciclo de workflow.
 
 ## Pendências
 
-- Verificar aderência do código à especificação, ao plano de testes e à arquitetura definida.
-- Avaliar se o tratamento de erros de infraestrutura precisa de cobertura adicional no modo de verificação.
-- Revisar se o formato Markdown simples atende bem à evolução futura sem sair do escopo atual.
+- Decidir se a próxima tarefa deve encerrar esta entrega ou abrir um novo ciclo para fortalecer erros de infraestrutura e cobertura negativa.
+- Atualizar `00-current-task.md` caso o workflow siga para um novo ciclo, evitando inconsistência com o estado real dos modos concluídos.
 
 ## Próxima Ação Recomendada
 
-Executar Modo de Verificação/Refatoração.
+Encerrar tarefa ou iniciar novo ciclo com `00-current-task.md`.
