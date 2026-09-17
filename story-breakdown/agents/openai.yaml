@@ -1,0 +1,4 @@
+interface:
+  display_name: "Story Breakdown"
+  short_description: "Decompõe specs maduras em histórias"
+  default_prompt: "Use $story-breakdown para decompor esta especificação em histórias implementáveis."

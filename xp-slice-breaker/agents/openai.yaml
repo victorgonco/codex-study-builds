@@ -1,0 +1,4 @@
+interface:
+  display_name: "XP Slice Breaker"
+  short_description: "Divide stories em slices verticais"
+  default_prompt: "Use $xp-slice-breaker para dividir esta User Story em slices verticais implementáveis."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "TDD Implementer"
+  short_description: "Implementa slices com TDD disciplinado"
+  default_prompt: "Use $tdd-implementer para implementar este slice Ready com ciclos curtos de TDD."

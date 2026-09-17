@@ -1,0 +1,4 @@
+interface:
+  display_name: "Discovery Engineer"
+  short_description: "Refina ideias em especificações SDD"
+  default_prompt: "Use $discovery-engineer para refinar esta ideia de software em uma especificação navegável."
