@@ -31,6 +31,10 @@ Permitir o cancelamento de um pedido que ainda esteja pendente.
 
 US-003 — Cancelar pedido
 
+## MVP
+
+MVP-001 — Processar o primeiro pedido
+
 ## Origem
 
 - RF-007
@@ -111,14 +115,28 @@ Crie ou atualize o índice na mesma pasta. A ordem deve representar a sequência
 ```markdown
 # US-003 — Slices
 
-| Ordem | ID | Slice | Dependências | Status |
-|---:|---|---|---|---|
-| 1 | SLICE-001 | Cancelar pedido pendente | — | Ready |
-| 2 | SLICE-002 | Impedir cancelamento duplicado | SLICE-001 | Ready |
-| 3 | SLICE-003 | Validar permissão | SLICE-001 | Ready |
+| Ordem | ID | Slice | MVP | Dependências | Status |
+|---:|---|---|---|---|---|
+| 1 | SLICE-001 | Cancelar pedido pendente | MVP-001 | — | Ready |
+| 2 | SLICE-002 | Impedir cancelamento duplicado | MVP-001 | SLICE-001 | Ready |
+| 3 | SLICE-003 | Validar permissão | MVP-001 | SLICE-001 | Ready |
 ```
 
 O índice não substitui os arquivos individuais. Não remova slices nem marque `Implemented` sem evidência.
+
+## Controle externo
+
+Atualize `handoff.md` no diretório que contém `spec.md`. Registre somente o estado atual em uma checklist curta:
+
+```markdown
+# Repasse
+
+- [x] US-003 dividida em três slices do MVP-001.
+- [ ] Aguardando: implementar SLICE-001.
+- [ ] Próximo passo: executar `tdd-implementer` para SLICE-001.
+```
+
+Se não houver slice `Ready`, substitua a próxima ação pelo bloqueio e pela skill à qual ele deve retornar. Leia `backlog.md` apenas como horizonte; não crie slices para suas frases enquanto elas não fizerem parte da especificação e da história.
 
 ## Verificação final
 
@@ -128,8 +146,10 @@ Antes de concluir, confirme:
 - a pasta de saída foi indicada pelo usuário;
 - existe um menor fluxo ponta a ponta;
 - cada slice possui objetivo único, comportamento observável, critérios e origem;
+- cada slice identifica o MVP ao qual contribui;
 - nenhum slice invade o escopo de outro ou representa apenas plumbing técnico;
 - granularidade e dependências são adequadas;
 - todos os comportamentos da história estão cobertos sem requisitos novos;
 - lacunas foram classificadas e registradas como bloqueios;
 - cada slice possui seu arquivo e o `README.md` representa a ordem atual.
+- o repasse identifica o próximo slice `Ready` ou o bloqueio que impede a implementação.

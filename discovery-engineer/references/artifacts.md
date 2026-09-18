@@ -155,3 +155,35 @@ Registre apenas mudanças semânticas relevantes. Não registre ortografia, form
 - FA-001 criado;
 - H-001 confirmada.
 ```
+
+## `handoff.md`
+
+É o repasse operacional do workflow, não um segundo changelog. Mantenha-o curto e substitua informações que ficaram obsoletas. Use checkboxes para tornar visível o que terminou, onde o trabalho parou, o que está aguardando e a próxima ação.
+
+```markdown
+# Repasse
+
+- [x] Discovery atualizado com a decisão sobre cancelamento.
+- [ ] Aguardando: decompor o MVP-001 em histórias.
+- [ ] Próximo passo: executar `story-breakdown` usando `spec.md`.
+```
+
+Se existir um bloqueio, expresse a ação que o desbloqueia:
+
+```markdown
+- [ ] Bloqueio: confirmar se pedidos processados podem ser cancelados.
+- [ ] Próximo passo após desbloqueio: atualizar RN-004 e retomar US-003.
+```
+
+Não acumule uma cronologia no repasse; esse papel pertence ao `changelog.md` e ao Git.
+
+## `backlog.md`
+
+É o horizonte externo do produto. Use uma lista Markdown simples, sem seções obrigatórias, identificadores ou detalhamento prematuro. Cada linha deve ser uma frase compreensível por si só.
+
+```markdown
+- [ ] Após o primeiro MVP, permitir aprovação de cancelamentos por um supervisor.
+- [ ] Avaliar suporte a múltiplas organizações.
+```
+
+Itens não marcados representam intenção futura e não alteram a especificação atual. Marque um item como concluído somente quando ele tiver sido refinado e incorporado aos artefatos autoritativos; acrescente novos itens sem reescrever silenciosamente os existentes. Não use o backlog para guardar bloqueios imediatos — coloque-os no repasse e no artefato afetado.

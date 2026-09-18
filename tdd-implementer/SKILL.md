@@ -16,11 +16,20 @@ Use esta skill quando existir um slice `Ready` com objetivo, comportamento, crit
 Leia integralmente:
 
 1. o slice alvo, incluindo `Não inclui`;
-2. a User Story e a especificação relacionadas, quando necessárias;
-3. `AGENTS.md`, README, documentação técnica e configurações do projeto aplicáveis;
-4. o código e os testes existentes na área afetada.
+2. a User Story, `MVPs.md` e a especificação relacionadas, quando necessárias;
+3. `handoff.md` e `backlog.md`, quando existirem, distinguindo o próximo trabalho do comportamento autorizado;
+4. `AGENTS.md`, README, documentação técnica e configurações do projeto aplicáveis;
+5. o código e os testes existentes na área afetada.
 
 Para comportamento funcional, a autoridade é: **especificação atual → User Story → slice → código**. O slice define o escopo atual. Se houver contradição, não escolha silenciosamente; classifique e reporte a lacuna.
+
+O plano de MVPs define o resultado executável que a sequência deve alcançar, mas não autoriza comportamento ausente no slice. O backlog é apenas horizonte futuro e nunca deve ser implementado antecipadamente.
+
+Considere como diretório de controle aquele que contém `spec.md`, salvo indicação explícita do usuário. Atualize ali `handoff.md` e preserve `backlog.md`, mesmo quando código, histórias e slices estiverem em outras pastas.
+
+## Impacto no workflow
+
+Esta skill é a etapa que converte os slices do `xp-slice-breaker` em software executável e evidência testável. O código e os testes realizados alimentam o status do slice e, quando completam todas as histórias necessárias, o status do MVP. Uma descoberta funcional não deve ser normalizada silenciosamente no código: devolva-a à etapa apropriada e registre-a no repasse.
 
 ## Compreender o código existente
 
@@ -87,6 +96,8 @@ O slice só está concluído quando comportamento e critérios foram atendidos, 
 
 Leia [references/completion.md](references/completion.md) antes de atualizar o arquivo do slice. Marque `Implemented` somente com evidência de código implementado, testes relevantes verdes e critérios satisfeitos.
 
+Depois de atualizar o slice, atualize `handoff.md`: marque o incremento concluído, registre onde o trabalho parou e indique o próximo slice `Ready`, a próxima história a fatiar ou o bloqueio a resolver. Se o slice concluir um MVP, valide também o resultado executável e os critérios de conclusão de `MVPs.md` antes de marcá-lo `Implemented`.
+
 Não crie commits, salvo solicitação explícita do usuário. Quando solicitado, mantenha-os pequenos, coerentes com o slice e sem alterações não relacionadas.
 
 ## Responder ao usuário
@@ -98,6 +109,7 @@ Informe de forma curta:
 - principais arquivos ou componentes alterados;
 - testes executados e resultados;
 - bloqueios, com a classificação correspondente;
-- status final `Implemented` ou motivo pelo qual permanece bloqueado.
+- status final `Implemented` ou motivo pelo qual permanece bloqueado;
+- próximo passo deixado no repasse.
 
 Resuma os ciclos realizados sem narrar cada edição interna.

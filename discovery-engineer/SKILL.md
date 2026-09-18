@@ -23,7 +23,13 @@ Quando faltar informação, siga: **identifique → explique o impacto → sugir
 
 Procure contexto, problema percebido, objetivo esperado e ideia inicial. Se esses elementos não estiverem claros, complete primeiro o entendimento e evite detalhar requisitos prematuramente.
 
-Leia `spec.md`, `duvidas.md` e `changelog.md` quando existirem; eles representam o estado persistente do discovery. Quando houver contexto suficiente e os arquivos ainda não existirem, crie-os conforme [references/artifacts.md](references/artifacts.md).
+Leia `spec.md`, `duvidas.md`, `changelog.md`, `handoff.md` e `backlog.md` quando existirem. Os três primeiros representam o estado persistente do discovery; o repasse mostra onde o workflow parou; o backlog mostra intenções futuras, mas não é fonte de requisitos. Quando houver contexto suficiente, crie ou atualize os artefatos necessários conforme [references/artifacts.md](references/artifacts.md). Mantenha sempre um repasse durante o workflow e só crie o backlog quando houver ao menos uma intenção futura explícita, sem inventar itens para preencher o arquivo.
+
+## Impacto no workflow
+
+Esta skill inicia e realimenta as demais etapas. Seu resultado deve permitir que o `story-breakdown` decomponha o produto sem inventar regras: a especificação fornece o comportamento atual, as dúvidas preservam decisões e o changelog explica mudanças já incorporadas.
+
+Quando uma lacuna for devolvida pelo `story-breakdown`, pelo `xp-slice-breaker` ou pelo `tdd-implementer`, refine a definição na fonte correta e registre o impacto nos itens relacionados. Não edite histórias, slices ou código como parte do discovery. Ao terminar uma rodada madura, atualize o repasse para indicar que a próxima ação é o breakdown ou qual decisão ainda o impede.
 
 ## Conduzir cada rodada
 
@@ -33,6 +39,7 @@ Leia `spec.md`, `duvidas.md` e `changelog.md` quando existirem; eles representam
 4. Pergunte primeiro o que pode alterar escopo, regras, comportamento ou vários fluxos.
 5. Ofereça alternativas quando ajudarem, deixando claro que não são exaustivas.
 6. Atualize os artefatos e registre somente mudanças semânticas no changelog.
+7. Atualize o repasse com o ponto de parada e o próximo passo acionável.
 
 Use como direção geral, adaptando a ordem ao caso: funcionalidades principais, atores e objetivos, processo atual e desejado, regras, casos de uso, fluxos principais, alternativas e exceções, dados, integrações, critérios de aceitação, edge cases, requisitos não funcionais, restrições e fora de escopo.
 
@@ -63,6 +70,12 @@ Use listas, tabelas pequenas, frases curtas, subtítulos, identificadores e refe
 
 Preserve, quando útil, a cadeia: problema → necessidade → caso de uso → regra → requisito → critério de aceitação. Referências simples bastam até que uma matriz formal seja realmente necessária.
 
+## Separar presente e futuro
+
+Mantenha em `spec.md` somente o estado atual confirmado. Registre em `backlog.md`, como frases curtas, mudanças futuras aceitas como intenção mas ainda não refinadas ou incorporadas. Não converta automaticamente itens do backlog em requisitos, histórias ou decisões confirmadas.
+
+Quando o usuário decidir antecipar um item do backlog, refine-o normalmente, incorpore o resultado à especificação e só então marque o item correspondente como concluído. Use `handoff.md` para o estado operacional imediato, nunca como histórico ou fonte funcional.
+
 ## Responder ao usuário
 
 Durante uma rodada, apresente:
@@ -72,6 +85,7 @@ Durante uma rodada, apresente:
 3. **Perguntas:** de 3 a 5 perguntas de maior impacto.
 4. **Sugestões:** até 3 propostas opcionais relevantes.
 5. **Artefatos atualizados:** arquivos que foram alterados.
+6. **Repasse:** ponto de parada e próximo passo registrado.
 
 Não replique na conversa o conteúdo completo de arquivos já atualizados.
 
@@ -79,4 +93,4 @@ Não replique na conversa o conteúdo completo de arquivos já atualizados.
 
 Considere a especificação pronta para orientar implementação quando problema e necessidade estão claros; atores, fluxos, regras e casos de uso principais estão definidos; comportamentos importantes têm critérios verificáveis; nenhuma lacuna relevante exige invenção; inconsistências críticas estão resolvidas ou explicitamente pendentes; e há um MVP coerente, validado pelo usuário.
 
-Antes de encerrar cada rodada, verifique se requisitos não foram inventados, hipóteses e sugestões permanecem identificadas, respostas relevantes entraram em `duvidas.md`, mudanças semânticas entraram em `changelog.md`, inconsistências estão registradas e detalhes técnicos não foram antecipados sem necessidade.
+Antes de encerrar cada rodada, verifique se requisitos não foram inventados, hipóteses e sugestões permanecem identificadas, respostas relevantes entraram em `duvidas.md`, mudanças semânticas entraram em `changelog.md`, inconsistências estão registradas, intenções futuras continuam no backlog até serem refinadas, o repasse aponta uma próxima ação concreta e detalhes técnicos não foram antecipados sem necessidade.

@@ -17,7 +17,15 @@ Antes de gerar slices, identifique:
 
 Se a pasta de saída não foi informada, pergunte antes de criar arquivos. Não escolha um diretório silenciosamente. Crie a pasta quando necessário e grave os artefatos somente nela, salvo orientação explícita em contrário.
 
-Leia integralmente a User Story. Consulte `spec.md`, `specs/**/*.md`, `duvidas.md` e `changelog.md` quando forem necessários para interpretá-la. A autoridade é: **especificação atual → User Story → slices**. Se a história contradiz a especificação, registre o problema antes de criar slices e não resolva a inconsistência por conta própria.
+Leia integralmente a User Story. Consulte `MVPs.md` para preservar o marco executável ao qual ela pertence e consulte `spec.md`, `specs/**/*.md`, `duvidas.md`, `changelog.md`, `handoff.md` e `backlog.md` quando forem necessários para interpretá-la. A autoridade funcional é: **especificação atual → User Story → slices**. `MVPs.md` orienta limite e ordem de entrega; o backlog não cria comportamento. Se a história contradiz a especificação, registre o problema antes de criar slices e não resolva a inconsistência por conta própria.
+
+Considere como diretório de controle aquele que contém `spec.md`, salvo indicação explícita do usuário. Mantenha nele o repasse e o backlog, mesmo que os slices sejam gravados em outra pasta.
+
+## Impacto no workflow
+
+Esta skill consome as histórias e o plano de MVPs produzidos pelo `story-breakdown`. Seus slices formam o contrato imediato do `tdd-implementer`: devem permitir implementação em passos pequenos sem perder o resultado executável prometido pelo MVP.
+
+Não altere regras do discovery nem implemente código. Ao concluir, deixe no repasse o primeiro slice `Ready` para TDD ou encaminhe a lacuna à skill responsável.
 
 ## Princípio central
 
@@ -72,6 +80,8 @@ Quando duas ordens forem equivalentes, prefira a que produz software utilizável
 
 Cada slice deve informar comportamento esperado, critérios de aceitação, regras envolvidas e limites de escopo. Isso deve permitir ciclos RED → GREEN → REFACTOR sem prescrever a estrutura do código.
 
+Indique também o MVP ao qual o slice contribui e preserve uma sequência em que o sistema permaneça executável e testável após cada incremento. O último slice necessário de um MVP deve tornar possível validar o resultado executável descrito em `MVPs.md`.
+
 Não determine testes unitários específicos, mocks, fixtures, classes ou frameworks. Descreva comportamento verificável; o implementador decide como testá-lo.
 
 ## Tratar lacunas
@@ -100,6 +110,8 @@ Use estes status:
 
 Antes de concluir, confirme que toda a User Story está coberta; caminho feliz, regras, alternativas, exceções e edge cases relevantes estão distribuídos; nenhum slice representa apenas camada técnica; nenhum comportamento novo foi inventado; todos têm critérios verificáveis; dependências são reais; e a sequência permite evolução incremental.
 
+Atualize `handoff.md` no diretório de controle com o ponto de parada, bloqueios e o próximo slice `Ready` para o `tdd-implementer`. Não promova itens do backlog a slices; devolva-os ao discovery quando o usuário decidir trazê-los para o escopo atual.
+
 ## Responder ao usuário
 
 Informe somente:
@@ -107,6 +119,7 @@ Informe somente:
 - User Story processada;
 - quantidade e ordem sugerida dos slices;
 - bloqueios, classificados como Discovery Gap ou Story Gap;
-- pasta e arquivos criados ou alterados.
+- pasta e arquivos criados ou alterados;
+- próximo repasse para o `tdd-implementer`.
 
 Não reproduza na conversa o conteúdo completo dos slices já gravados.

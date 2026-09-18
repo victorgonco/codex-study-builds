@@ -1,6 +1,6 @@
 ---
 name: story-breakdown
-description: Decomponha uma especificação madura de software em histórias pequenas, rastreáveis, ordenáveis e prontas para implementação, gravando cada história em um arquivo Markdown separado e mantendo um índice. Use para planejar uma implementação ou reorganizar histórias existentes; não use para descobrir requisitos, alterar regras de negócio, escolher arquitetura ou implementar código.
+description: Decomponha uma especificação madura de software em MVPs executáveis e histórias pequenas, rastreáveis, ordenáveis e prontas para implementação. Use para planejar entregas incrementais ou reorganizar histórias existentes; não use para descobrir requisitos, alterar regras de negócio, escolher arquitetura ou implementar código.
 ---
 
 # Story Breakdown
@@ -16,13 +16,21 @@ Antes de gerar arquivos, obtenha:
 
 Se a pasta não foi informada, pergunte antes de criar arquivos. Não escolha um diretório silenciosamente. Crie a pasta indicada quando ela ainda não existir e grave todos os artefatos do breakdown exclusivamente nela, salvo orientação explícita em contrário.
 
-Leia integralmente `spec.md` e, quando existirem, `specs/**/*.md`, `duvidas.md` e `changelog.md`. Use a especificação atual como fonte de requisitos; use dúvidas e changelog apenas para entender decisões e mudanças. Em caso de conflito, a especificação atual prevalece sobre o histórico.
+Leia integralmente `spec.md` e, quando existirem, `specs/**/*.md`, `duvidas.md`, `changelog.md`, `handoff.md` e `backlog.md`. Use a especificação atual como fonte de requisitos; use dúvidas e changelog apenas para entender decisões e mudanças. O repasse orienta a retomada operacional. O backlog antecipa possíveis evoluções, mas não autoriza histórias nem critérios. Em caso de conflito, a especificação atual prevalece sobre o histórico.
 
 Se a especificação não estiver madura, registre as lacunas como bloqueios e encaminhe-as de volta ao discovery. Não invente requisitos nem decida comportamentos para tornar uma história implementável.
 
+Considere como diretório de controle aquele que contém `spec.md`, salvo indicação explícita do usuário. É nele que `handoff.md` e `backlog.md` devem ser lidos e atualizados, mesmo quando a pasta de histórias estiver em outro local.
+
+## Impacto no workflow
+
+Esta skill consome os artefatos do `discovery-engineer` e produz o plano funcional de entrega usado pelo `xp-slice-breaker`. Cada história deve manter referências para a especificação, e cada MVP deve agrupar histórias em um incremento que, depois de implementado pelo `tdd-implementer`, resulte em uma aplicação executável e testável.
+
+Não implemente código nem prescreva slices. Ao concluir, deixe no repasse qual história `Ready` deve seguir para o `xp-slice-breaker`, ou qual lacuna deve retornar ao discovery.
+
 ## Mapear antes de decompor
 
-Leia o conjunto completo antes de criar histórias. Mapeie problema, objetivo, atores, casos de uso, fluxos, regras, requisitos funcionais, critérios de aceitação, integrações, requisitos não funcionais, edge cases, MVP, dependências e decisões pendentes.
+Leia o conjunto completo antes de criar histórias. Mapeie problema, objetivo, atores, casos de uso, fluxos, regras, requisitos funcionais, critérios de aceitação, integrações, requisitos não funcionais, edge cases, MVPs, dependências e decisões pendentes.
 
 Siga: **ler → mapear → decompor → validar → ordenar → gravar**.
 
@@ -50,11 +58,21 @@ Não transforme automaticamente integrações ou requisitos não funcionais em h
 
 Histórias técnicas são válidas para trabalho necessário sem ação direta do usuário, como migração, infraestrutura obrigatória, auditoria ou observabilidade. Marque-as explicitamente como `Tipo: História técnica`. Não as use para representar camadas da aplicação.
 
-## Dependências, MVP e bloqueios
+## Dependências, MVPs executáveis e bloqueios
 
 Registre dependências funcionais reais entre histórias. Se duas histórias estiverem excessivamente acopladas, reavalie se deveriam ser uma só ou se o acoplamento surgiu de decomposição técnica.
 
-Quando houver MVP confirmado, marque cada história com `MVP: Sim` ou `MVP: Não` sem alterar seu escopo. Se houver apenas uma sugestão de MVP, preserve essa incerteza.
+Transforme o MVP confirmado no menor marco coerente que possa resultar em software executável e testável, sem confundir planejamento com implementação. Um MVP deve:
+
+- validar uma hipótese, necessidade ou fluxo central explícito na especificação;
+- agrupar o menor conjunto ordenado de histórias necessário para um resultado utilizável;
+- declarar o estado observável da aplicação ao final;
+- indicar como o resultado poderá ser executado e validado em termos de comportamento, sem escolher arquitetura ausente;
+- possuir critérios de conclusão verificáveis.
+
+Quando a evolução pedir mais de um marco, numere-os como `MVP-001`, `MVP-002` e assim por diante. O primeiro deve preservar a ideia central no menor fluxo real possível; os seguintes devem produzir novos estados executáveis, não apenas pacotes de trabalho técnico. Uma história pode pertencer a um único MVP principal; registre dependências entre MVPs quando existirem.
+
+Se houver apenas uma sugestão de MVP no discovery, preserve a incerteza e marque o marco como `Needs Validation`. Não inclua uma intenção de `backlog.md` em um MVP até ela ser refinada e incorporada à especificação.
 
 Quando faltar informação necessária:
 
@@ -68,9 +86,9 @@ Nunca escolha silenciosamente uma resposta.
 
 ## Gerar os artefatos
 
-Leia [references/story-files.md](references/story-files.md) antes de criar ou atualizar arquivos. É obrigatório gerar um arquivo `.md` por história e um `README.md` como índice. Preserve nomes estáveis ao atualizar histórias existentes.
+Leia [references/story-files.md](references/story-files.md) antes de criar ou atualizar arquivos. É obrigatório gerar um arquivo `.md` por história, um `README.md` como índice e um `MVPs.md` com os marcos executáveis. Preserve nomes e identificadores estáveis ao atualizar artefatos existentes.
 
-Use apenas estes status:
+Para histórias, use apenas estes status:
 
 - `Ready`: informação suficiente para implementação.
 - `Blocked`: uma decisão externa impede o avanço.
@@ -81,17 +99,20 @@ Não associe automaticamente histórias a sprints e não estime esforço ou dura
 
 ## Ordenar e validar cobertura
 
-Sugira uma ordem de implementação considerando dependências funcionais, capacidades fundamentais, fluxo principal, feedback antecipado, MVP, integrações, fluxos alternativos e edge cases.
+Sugira uma ordem de implementação considerando dependências funcionais, capacidades fundamentais, fluxo principal, feedback antecipado, MVPs, integrações, fluxos alternativos e edge cases.
 
-Antes de concluir, confira que casos de uso, requisitos funcionais, regras relevantes, critérios, MVP, integrações e edge cases possuem cobertura; nenhuma história introduz comportamento novo; bloqueios registram lacunas restantes; cada história possui objetivo, origem e critérios verificáveis; e o índice corresponde aos arquivos existentes. Registre explicitamente qualquer requisito sem história correspondente.
+Antes de concluir, confira que casos de uso, requisitos funcionais, regras relevantes, critérios, MVPs, integrações e edge cases possuem cobertura; cada MVP termina em um resultado executável e testável; nenhuma história introduz comportamento novo; bloqueios registram lacunas restantes; cada história possui objetivo, origem e critérios verificáveis; e os índices correspondem aos arquivos existentes. Registre explicitamente qualquer requisito sem história correspondente.
+
+Atualize `handoff.md` no diretório de controle com um checklist curto: breakdown concluído, ponto de parada, bloqueios ativos e próxima história `Ready` a ser processada pelo `xp-slice-breaker`. Preserve `backlog.md`; só marque um item quando houver evidência de que ele foi incorporado à especificação.
 
 ## Responder ao usuário
 
 Informe somente um resumo com:
 
-- quantidade de epics, capabilities, histórias, histórias técnicas e bloqueios;
+- quantidade de epics, capabilities, histórias, histórias técnicas, MVPs e bloqueios;
 - requisitos ou casos de uso sem cobertura;
 - decisões que precisam voltar ao discovery;
-- pasta usada e arquivos criados ou atualizados.
+- pasta usada e arquivos criados ou atualizados;
+- próximo repasse para o `xp-slice-breaker`.
 
 Não reproduza na conversa o conteúdo completo das histórias já gravadas.

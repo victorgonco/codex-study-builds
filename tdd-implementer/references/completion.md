@@ -35,6 +35,24 @@ Acrescente uma seção curta, sem transformar o slice em documentação detalhad
 
 O Git permanece responsável pelo histórico técnico. Não copie diffs, detalhes internos ou uma narrativa completa da implementação para o slice.
 
+## Atualizar o MVP
+
+Consulte `MVPs.md` depois de concluir o slice. Só marque um MVP como `Implemented` quando todas as histórias e slices necessários estiverem implementados, a aplicação puder ser executada no ambiente suportado e a validação comportamental do marco tiver sido realizada. Registre evidência curta dos comandos ou procedimentos executados; não considere a soma de status suficiente sem validar o resultado integrado.
+
+## Atualizar o repasse
+
+Mantenha `handoff.md` no diretório de controle como uma checklist operacional, não como histórico:
+
+```markdown
+# Repasse
+
+- [x] SLICE-001 implementado e validado.
+- [ ] Aguardando: implementar SLICE-002.
+- [ ] Próximo passo: executar `tdd-implementer` para SLICE-002.
+```
+
+Quando não houver outro slice `Ready`, a próxima ação deve apontar para o `xp-slice-breaker`, o `story-breakdown` ou o `discovery-engineer`, conforme a classificação da lacuna. Preserve `backlog.md` como lista de futuro; não implemente nem marque suas frases apenas porque seriam convenientes ao código atual.
+
 ## Definition of Done
 
 Considere o slice concluído quando:
@@ -65,3 +83,5 @@ Confirme antes de encerrar:
 - nenhuma regra de negócio foi inventada;
 - dúvidas foram classificadas como Discovery Gap, Story Gap, Slice Gap ou Technical Blocker;
 - o status `Implemented` está sustentado por evidência.
+- um MVP concluído possui evidência de execução e validação integrada.
+- o repasse registra o ponto de parada e uma próxima ação concreta.
